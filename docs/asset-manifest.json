@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/call-log-dashboard/static/js/main.85d05b24.js",
+    "index.html": "/call-log-dashboard/index.html",
+    "main.85d05b24.js.map": "/call-log-dashboard/static/js/main.85d05b24.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.85d05b24.js"
+  ]
+}
