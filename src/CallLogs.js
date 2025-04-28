@@ -75,7 +75,7 @@ const CallLogs = () => {
                 <TableCell>{log.phoneNumber}</TableCell>
                 <TableCell>{log.callType}</TableCell>
                 <TableCell>{new Date(log.callTime).toLocaleString()}</TableCell>
-                <TableCell>{log.duration}</TableCell>
+                <TableCell>{(log.duration / 60).toFixed(2)} min</TableCell>
               </TableRow>
             ))}
           </TableBody>
