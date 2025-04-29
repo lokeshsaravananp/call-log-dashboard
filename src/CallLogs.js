@@ -44,16 +44,13 @@ const CallLogs = () => {
   if (logs.length === 0) {
     return (
       <div style={{ padding: "2rem", textAlign: "center" }}>
-        <Typography variant="h6">No call logs available for today.</Typography>
+        <Typography variant="h6">No call logs available.</Typography>
       </div>
     );
   }
 
   return (
     <div style={{ padding: "2rem" }}>
-      <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold" }}>
-        Call Logs
-      </Typography>
       <TableContainer component={Paper} elevation={3}>
         <Table>
           <TableHead>
@@ -61,7 +58,7 @@ const CallLogs = () => {
               <TableCell sx={{ color: "white", fontWeight: "bold" }}>Phone Number</TableCell>
               <TableCell sx={{ color: "white", fontWeight: "bold" }}>Call Type</TableCell>
               <TableCell sx={{ color: "white", fontWeight: "bold" }}>Call Time</TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>Duration (seconds)</TableCell>
+              <TableCell sx={{ color: "white", fontWeight: "bold" }}>Duration</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -74,7 +71,9 @@ const CallLogs = () => {
               >
                 <TableCell>{log.phoneNumber}</TableCell>
                 <TableCell>{log.callType}</TableCell>
-                <TableCell>{new Date(log.callTime).toLocaleString()}</TableCell>
+                <TableCell>
+                 {new Date(new Date(log.callTime).getTime() + 5.5 * 60 * 60 * 1000).toLocaleString()}
+                </TableCell>
                 <TableCell>{(log.duration / 60).toFixed(2)} min</TableCell>
               </TableRow>
             ))}
