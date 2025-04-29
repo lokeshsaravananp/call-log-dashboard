@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -16,9 +17,10 @@ const CallLogs = () => {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchLogs = (url) => {
+    setLoading(true);
     axios
-      .get("https://calllog-backend-1.onrender.com/api/logs/all")
+      .get(url)
       .then((response) => {
         console.log("Fetched logs:", response.data);
         setLogs(response.data);
@@ -28,7 +30,19 @@ const CallLogs = () => {
         console.error("Error fetching logs:", error);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchLogs("https://calllog-backend-1.onrender.com/api/logs/all");
   }, []);
+
+  const handleTodayClick = () => {
+    fetchLogs("https://calllog-backend-1.onrender.com/api/logs/today");
+  };
+
+  const handleBackClick = () => {
+    fetchLogs("https://calllog-backend-1.onrender.com/api/logs/all");
+  };
 
   if (loading) {
     return (
@@ -51,6 +65,14 @@ const CallLogs = () => {
 
   return (
     <div style={{ padding: "2rem" }}>
+      <div style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between" }}>
+        <Button variant="outlined" color="secondary" onClick={handleBackClick}>
+          Back
+        </Button>
+        <Button variant="contained" color="primary" onClick={handleTodayClick}>
+          Today
+        </Button>
+      </div>
       <TableContainer component={Paper} elevation={3}>
         <Table>
           <TableHead>
@@ -72,7 +94,7 @@ const CallLogs = () => {
                 <TableCell>{log.phoneNumber}</TableCell>
                 <TableCell>{log.callType}</TableCell>
                 <TableCell>
-                 {new Date(new Date(log.callTime).getTime() + 5.5 * 60 * 60 * 1000).toLocaleString()}
+                  {new Date(new Date(log.callTime).getTime() + 5.5 * 60 * 60 * 1000).toLocaleString()}
                 </TableCell>
                 <TableCell>{(log.duration / 60).toFixed(2)} min</TableCell>
               </TableRow>
